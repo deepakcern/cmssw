@@ -399,6 +399,11 @@ void pat::PATPackedCandidateProducer::produce(edm::StreamID, edm::Event &iEvent,
         std::vector<float> hcalDepthEnergyFractionTmp(cand.hcalDepthEnergyFractions().begin(),
                                                       cand.hcalDepthEnergyFractions().end());
         hcalDepthEFrac.reset(hcalDepthEnergyFractionTmp);
+	    std::array<float,7> hcalDepthEnergyFractions {{
+		cand.hcalDepthEnergyFraction(1), cand.hcalDepthEnergyFraction(2), cand.hcalDepthEnergyFraction(3), cand.hcalDepthEnergyFraction(4),
+		  cand.hcalDepthEnergyFraction(5), cand.hcalDepthEnergyFraction(6), cand.hcalDepthEnergyFraction(7)
+		  }};
+	    outPtrP->back().setHcalDepthEnergyFractions(hcalDepthEnergyFractions);
       }
     }
     hcalDepthEnergyFractions.push_back(hcalDepthEFrac);

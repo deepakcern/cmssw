@@ -12,6 +12,7 @@
 #include "FWCore/Utilities/interface/thread_safety_macros.h"
 #include <atomic>
 #include <mutex>
+#include <array>
 
 /* #include "DataFormats/Math/interface/PtEtaPhiMass.h" */
 
@@ -51,6 +52,7 @@ namespace pat {
           rawHcalFraction_(0),
           caloFraction_(0),
           hcalFraction_(0),
+	  hcalDepthEnergyFractions_({{0,0,0,0,0,0,0}}),
           packedTime_(0),
           packedTimeError_(0),
           isIsolatedChargedHadron_(false),
@@ -81,6 +83,7 @@ namespace pat {
           rawHcalFraction_(0),
           caloFraction_(0),
           hcalFraction_(0),
+	  hcalDepthEnergyFractions_({{0,0,0,0,0,0,0}}),
           packedTime_(0),
           packedTimeError_(0),
           isIsolatedChargedHadron_(false),
@@ -119,6 +122,7 @@ namespace pat {
           rawHcalFraction_(0),
           caloFraction_(0),
           hcalFraction_(0),
+	  hcalDepthEnergyFractions_({{0,0,0,0,0,0,0}}),
           packedTime_(0),
           packedTimeError_(0),
           isIsolatedChargedHadron_(false),
@@ -157,6 +161,7 @@ namespace pat {
           rawHcalFraction_(0),
           caloFraction_(0),
           hcalFraction_(0),
+	  hcalDepthEnergyFractions_({{0,0,0,0,0,0,0}}),
           packedTime_(0),
           packedTimeError_(0),
           isIsolatedChargedHadron_(false),
@@ -198,6 +203,7 @@ namespace pat {
           rawHcalFraction_(iOther.rawHcalFraction_),
           caloFraction_(iOther.caloFraction_),
           hcalFraction_(iOther.hcalFraction_),
+	  hcalDepthEnergyFractions_(iOther.hcalDepthEnergyFractions_),
           packedTime_(iOther.packedTime_),
           packedTimeError_(iOther.packedTimeError_),
           isIsolatedChargedHadron_(iOther.isIsolatedChargedHadron_),
@@ -240,6 +246,7 @@ namespace pat {
           rawHcalFraction_(iOther.rawHcalFraction_),
           caloFraction_(iOther.caloFraction_),
           hcalFraction_(iOther.hcalFraction_),
+	  hcalDepthEnergyFractions_(iOther.hcalDepthEnergyFractions_),
           packedTime_(iOther.packedTime_),
           packedTimeError_(iOther.packedTimeError_),
           isIsolatedChargedHadron_(iOther.isIsolatedChargedHadron_),
@@ -284,6 +291,7 @@ namespace pat {
       rawHcalFraction_ = iOther.rawHcalFraction_;
       caloFraction_ = iOther.caloFraction_;
       hcalFraction_ = iOther.hcalFraction_;
+      hcalDepthEnergyFractions_ = iOther.hcalDepthEnergyFractions_;
       packedTime_ = iOther.packedTime_;
       packedTimeError_ = iOther.packedTimeError_;
       isIsolatedChargedHadron_ = iOther.isIsolatedChargedHadron_;
@@ -362,6 +370,7 @@ namespace pat {
       rawHcalFraction_ = iOther.rawHcalFraction_;
       caloFraction_ = iOther.caloFraction_;
       hcalFraction_ = iOther.hcalFraction_;
+      hcalDepthEnergyFractions_ = iOther.hcalDepthEnergyFractions_;
       packedTime_ = iOther.packedTime_;
       packedTimeError_ = iOther.packedTimeError_;
       isIsolatedChargedHadron_ = iOther.isIsolatedChargedHadron_;
@@ -933,6 +942,8 @@ namespace pat {
     float hcalFraction() const {
       return (hcalFraction_ / 100.);
     }  /// Fraction of Hcal for HF, neutral hadrons, and charged particles
+    void setHcalDepthEnergyFractions(const std::array<float,7> & fracs);                      /// set fraction of Hcal energies in each depth
+    float hcalDepthEnergyFraction(unsigned int depth) const { return (hcalDepthEnergyFractions_[depth-1]/200.); }    /// Fraction of Hcal energies in each depth
 
     // isolated charged hadrons
     void setIsIsolatedChargedHadron(bool p);  /// Set isolation (as in particle flow, i.e. at calorimeter
@@ -1038,6 +1049,7 @@ namespace pat {
     int8_t rawHcalFraction_;
     uint8_t caloFraction_;
     int8_t hcalFraction_;
+    std::array<uint8_t,7> hcalDepthEnergyFractions_;
     int16_t packedTime_;
     uint8_t packedTimeError_;
 

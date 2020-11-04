@@ -42,7 +42,7 @@ run2_HCAL_2018.toModify(packedPFCandidates,
 
 from Configuration.Eras.Modifier_run3_common_cff import run3_common
 run3_common.toModify(packedPFCandidates,
-    pfCandidateTypesForHcalDepth = [], # For now, no PF cand type is considered for addition of Hcal depth energy frac 
+    pfCandidateTypesForHcalDepth = [130,11,22,211,13], # For now, no PF cand type is considered for addition of Hcal depth energy frac 
     storeHcalDepthEndcapOnly = False
 )
 
